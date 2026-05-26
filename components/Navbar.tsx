@@ -147,16 +147,16 @@ export default function Navbar() {
             ))}
 
             <button
-              onClick={() => {
-                setMobileMenu(false);
+  onClick={() => {
+    setMobileMenu(false);
 
-                const event = new CustomEvent("openAdmission");
-                window.dispatchEvent(event);
-              }}
-              className="mt-2 rounded-2xl bg-emerald-600 px-5 py-4 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-700"
-            >
-              Apply For Admission
-            </button>
+    const event = new CustomEvent("openAdmission");
+    window.dispatchEvent(event);
+  }}
+  className="hidden md:block mt-2 rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-700"
+>
+  Apply For Admission
+</button>
           </div>
         </motion.div>
       )}
