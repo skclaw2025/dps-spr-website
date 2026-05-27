@@ -8,8 +8,8 @@ import AdmissionModal from "@/components/AdmissionModal";
 
 import Hero from "@/sections/Hero";
 import About from "@/sections/About";
-import Innovation from "@/sections/Innovation";
-import WhyChooseUs from "@/sections/WhyChooseUs";
+//import Innovation from "@/sections/Innovation";
+//import WhyChooseUs from "@/sections/WhyChooseUs";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -44,10 +44,6 @@ export default function Home() {
       <Hero />
 
       <About />
-
-      <Innovation />
-
-      <WhyChooseUs />
 
       <Footer />
 
