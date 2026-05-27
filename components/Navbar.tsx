@@ -44,7 +44,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="fixed left-0 top-0 z-50 w-full px-4 pt-3 md:px-6">
+      <div className="fixed left-0 top-0 z-50 w-full px-4 pt-5 md:px-6 md:pt-5">
         <motion.nav
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
