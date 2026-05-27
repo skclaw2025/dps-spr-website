@@ -49,37 +49,19 @@ const [videoLoaded, setVideoLoaded] = useState(true);
   ref={videoRef}
   autoPlay
   muted
-  loop
+ loop
   playsInline
   preload="auto"
   poster="/images/schoolfront.webp"
-  className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+  className={`absolute inset-0 h-full w-full scale-125 md:scale-105 object-cover transition-opacity duration-700 ${
     videoLoaded ? "opacity-100" : "opacity-0"
   }`}
   style={{
+    objectPosition: "center center",
     filter: "brightness(1.05) contrast(1.05) saturate(1.08)",
   }}
-  onCanPlay={() => {
-    setVideoLoaded(true);
-
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  }}
-  onPause={() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  }}
-  onEnded={() => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play().catch(() => {});
-    }
-  }}
-  onError={() => {
-    setVideoLoaded(false);
-  }}
+  onCanPlay={() => setVideoLoaded(true)}
+  onError={() => setVideoLoaded(false)}
 >
   <source src="/school-video.mp4" type="video/mp4" />
 </video>
