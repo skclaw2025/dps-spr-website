@@ -15,38 +15,56 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        {/* Fallback Image */}
-        <img
-          src="/schoolfront.png"
-          alt="DPS SPR School"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        {/* Background Media */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Background Image */}
+          <img
+            src="/images/hero-fallback.jpg"
+            alt="DPS SPR School"
+            className="absolute inset-0 h-full w-full scale-105 object-cover"
+          />
 
-        {/* Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/schoolfront.png"
-          className="absolute inset-0 h-full w-full object-cover"
-          onError={(e) => {
-            e.currentTarget.style.display = "none";
-          }}
-        >
-          <source src="/school-video.webm" type="video/webm" />
-          <source src="/school-video.mp4" type="video/mp4" />
-        </video>
+          {/* Cinematic Video */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/images/hero-fallback.jpg"
+            className="absolute inset-0 h-full w-full scale-105 object-cover"
+            style={{
+              filter: "brightness(1.05) contrast(1.08) saturate(1.1)",
+            }}
+            onEnded={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+            onPause={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          >
+            <source src="/school-video.webm" type="video/webm" />
+            <source src="/school-video.mp4" type="video/mp4" />
+          </video>
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/30" />
+          {/* Soft Premium Overlay */}
+          <div className="absolute inset-0 bg-black/25" />
 
-        {/* Cinematic Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/70" />
-      </div>
+          {/* Elegant Cinematic Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/10 to-black/40" />
+
+          {/* Luxury Light Glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_55%)]" />
+
+          {/* Subtle Green Accent Glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(34,197,94,0.18),transparent_35%)]" />
+
+          {/* Cinematic Animated Zoom */}
+          <div className="absolute inset-0 animate-[pulse_12s_ease-in-out_infinite]" />
+        </div>
 
       
     </section>

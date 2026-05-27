@@ -146,17 +146,17 @@ export default function Navbar() {
               </a>
             ))}
 
-            <button
+            <div className="hidden lg:flex">
+              <button
                 onClick={() => {
-                  setMobileMenu(false);
-
                   const event = new CustomEvent("openAdmission");
                   window.dispatchEvent(event);
                 }}
-                className="hidden lg:flex mt-2 items-center justify-center rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-700"
+                className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-700"
               >
                 Apply For Admission
               </button>
+            </div>
           </div>
         </motion.div>
       )}
