@@ -44,26 +44,29 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="fixed left-0 top-0 z-50 w-full px-4 pt-4 md:px-6">
+      <div className="fixed left-0 top-0 z-50 w-full px-4 pt-3 md:px-6">
         <motion.nav
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7 }}
-          className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-5 py-3 transition-all duration-500 md:px-8 ${
+          className={`relative mx-auto flex max-w-7xl items-center justify-between rounded-full border px-5 py-2 md:px-8 md:py-3 transition-all duration-500 ${
             scrolled
               ? "border-white/60 bg-white/75 shadow-[0_10px_40px_rgba(0,0,0,0.08)] backdrop-blur-2xl"
               : "border-transparent bg-transparent"
           }`}
         >
+          {/* Left Space for Mobile */}
+          <div className="w-11 lg:hidden" />
+
           {/* Logo */}
           <a
             href="#"
-            className="flex items-center gap-3"
+            className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2 lg:static lg:translate-x-0"
           >
             <img
               src={scrolled ? "/logogreen.png" : "/logowhite.png"}
               alt="DPS SPR School"
-              className="h-14 w-auto transition-all duration-500"
+              className="h-12 w-auto transition-all duration-500 md:h-14"
             />
           </a>
 
@@ -85,29 +88,31 @@ export default function Navbar() {
           )}
 
           {/* Right Side */}
-          <div className="flex items-center gap-3">
-            {/* CTA */}
-            <button
-              onClick={() => {
-                const event = new CustomEvent("openAdmission");
-                window.dispatchEvent(event);
-              }}
-              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 ${
-                scrolled
-                  ? "bg-emerald-600 text-white shadow-lg shadow-emerald-200 hover:bg-emerald-700"
-                  : "bg-white text-slate-900 hover:bg-white/90"
-              }`}
-            >
-              Admissions Open
+          <div className="ml-auto flex items-center gap-3">
+            {/* Desktop CTA */}
+            <div className="hidden lg:flex">
+              <button
+                onClick={() => {
+                  const event = new CustomEvent("openAdmission");
+                  window.dispatchEvent(event);
+                }}
+                className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 ${
+                  scrolled
+                    ? "bg-emerald-600 text-white shadow-lg shadow-emerald-200 hover:bg-emerald-700"
+                    : "bg-white text-slate-900 hover:bg-white/90"
+                }`}
+              >
+                Admissions Open
 
-              <ArrowUpRight className="h-4 w-4" />
-            </button>
+                <ArrowUpRight className="h-4 w-4" />
+              </button>
+            </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Button */}
             {scrolled && (
               <button
                 onClick={() => setMobileMenu(!mobileMenu)}
-                className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 transition-all duration-300 lg:hidden"
+                className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 transition-all duration-300 lg:hidden"
               >
                 {mobileMenu ? (
                   <X className="h-5 w-5" />
@@ -145,18 +150,6 @@ export default function Navbar() {
                 <ArrowUpRight className="h-4 w-4 text-emerald-700" />
               </a>
             ))}
-
-            <div className="hidden lg:flex">
-              <button
-                onClick={() => {
-                  const event = new CustomEvent("openAdmission");
-                  window.dispatchEvent(event);
-                }}
-                className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-700"
-              >
-                Apply For Admission
-              </button>
-            </div>
           </div>
         </motion.div>
       )}
