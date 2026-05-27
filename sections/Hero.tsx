@@ -1,8 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+const [isPlaying, setIsPlaying] = useState(true);
+
+const [videoLoaded, setVideoLoaded] = useState(true);
+
   const scrollToNext = () => {
     const nextSection = document.getElementById("about");
 
@@ -13,60 +19,80 @@ export default function Hero() {
     }
   };
 
+  useEffect(() => {
+  const interval = setInterval(() => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play().catch(() => {});
+      }
+    }
+  }, 3000);
+
+  return () => clearInterval(interval);
+}, []);
+
   return (
     <section className="relative min-h-screen overflow-hidden">
-        {/* Background Media */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Background Image */}
-          <img
-            src="/schoolfront1.png"
-            alt="DPS SPR School"
-            className="absolute inset-0 h-full w-full scale-105 object-cover"
-          />
+     {/* Background Media */}
+<div className="absolute inset-0 overflow-hidden">
+  {/* Initial Fallback Image */}
+  {!videoLoaded && (
+    <img
+      src="/images/schoolfront.webp"
+      alt="DPS SPR School"
+      className="absolute inset-0 h-full w-full object-cover"
+    />
+  )}
 
-          {/* Cinematic Video */}
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster="/schoolfront1.png"
-            className="absolute inset-0 h-full w-full scale-105 object-cover"
-            style={{
-              filter: "brightness(1.05) contrast(1.08) saturate(1.1)",
-            }}
-            onEnded={(e) => {
-              e.currentTarget.style.display = "none";
-            }}
-            onPause={(e) => {
-              e.currentTarget.style.display = "none";
-            }}
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
-            }}
-          >
-            <source src="/school-video.webm" type="video/webm" />
-            <source src="/school-video.mp4" type="video/mp4" />
-          </video>
+  {/* Video */}
+  <video
+  ref={videoRef}
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  poster="/images/schoolfront.webp"
+  className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+    videoLoaded ? "opacity-100" : "opacity-0"
+  }`}
+  style={{
+    filter: "brightness(1.05) contrast(1.05) saturate(1.08)",
+  }}
+  onCanPlay={() => {
+    setVideoLoaded(true);
 
-          {/* Soft Premium Overlay */}
-          <div className="absolute inset-0 bg-black/25" />
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }}
+  onPause={() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }}
+  onEnded={() => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
+  }}
+  onError={() => {
+    setVideoLoaded(false);
+  }}
+>
+  <source src="/school-video.mp4" type="video/mp4" />
+</video>
 
-          {/* Elegant Cinematic Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/10 to-black/40" />
+  {/* Premium Overlay */}
+  <div className="absolute inset-0 bg-black/20" />
 
-          {/* Luxury Light Glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_55%)]" />
+  {/* Cinematic Gradient */}
+  <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/35" />
 
-          {/* Subtle Green Accent Glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(34,197,94,0.18),transparent_35%)]" />
-
-          {/* Cinematic Animated Zoom */}
-          <div className="absolute inset-0 animate-[pulse_12s_ease-in-out_infinite]" />
-        </div>
-
-      
+  {/* Soft Glow */}
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_55%)]" />
+</div>
     </section>
   );
 }
