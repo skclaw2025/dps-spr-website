@@ -19,7 +19,7 @@ export default function Hero() {
         <div className="absolute inset-0 overflow-hidden">
           {/* Background Image */}
           <img
-            src="/images/hero-fallback.jpg"
+            src="/schoolfront1.png"
             alt="DPS SPR School"
             className="absolute inset-0 h-full w-full scale-105 object-cover"
           />
@@ -31,7 +31,7 @@ export default function Hero() {
             loop
             playsInline
             preload="auto"
-            poster="/images/hero-fallback.jpg"
+            poster="/schoolfront1.png"
             className="absolute inset-0 h-full w-full scale-105 object-cover"
             style={{
               filter: "brightness(1.05) contrast(1.08) saturate(1.1)",
