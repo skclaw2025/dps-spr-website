@@ -19,7 +19,7 @@ export default function Hero() {
       <div className="absolute inset-0">
         {/* Fallback Image */}
         <img
-          src="/images/hero-fallback.jpg"
+          src="/schoolfront.png"
           alt="DPS SPR School"
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -31,7 +31,7 @@ export default function Hero() {
           loop
           playsInline
           preload="metadata"
-          poster="/images/hero-fallback.jpg"
+          poster="/schoolfront.png"
           className="absolute inset-0 h-full w-full object-cover"
           onError={(e) => {
             e.currentTarget.style.display = "none";
@@ -42,7 +42,7 @@ export default function Hero() {
         </video>
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-black/30" />
 
         {/* Cinematic Gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/70" />
