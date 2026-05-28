@@ -6,7 +6,6 @@ import Navbar from "@/components/Navbar";
 import WhatsappButton from "@/components/WhatsappButton";
 import AdmissionModal from "@/components/AdmissionModal";
 
-import Hero from "@/sections/Hero";
 import About from "@/sections/About";
 //import Innovation from "@/sections/Innovation";
 //import WhyChooseUs from "@/sections/WhyChooseUs";
@@ -40,8 +39,6 @@ export default function Home() {
     <>
 
       <Navbar />
-
-      <Hero />
 
       <About />
 
