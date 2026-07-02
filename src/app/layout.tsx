@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import WhatsAppButton from "@/components/shared/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: {
@@ -17,7 +18,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* WhatsApp Quick Contact — appears on every page */}
+        <WhatsAppButton />
+      </body>
     </html>
   );
 }
