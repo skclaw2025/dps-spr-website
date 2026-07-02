@@ -84,10 +84,20 @@ export default function Hero() {
       {/* Background */}
       <motion.div className="absolute inset-0 z-0" style={{ scale: bgScale }}>
         {!noVid ? (
-          <video className="w-full h-full object-cover" autoPlay muted loop playsInline onError={() => setNoVid(true)}>
-            <source src="/videos/campus.webm" type="video/webm" />
-            <source src="/videos/campus1.mp4"  type="video/mp4" />
-          </video>
+          <video
+  className="w-full h-full object-cover"
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  disablePictureInPicture
+  onError={() => setNoVid(true)}
+  style={{ WebkitPlaysinline: true } as React.CSSProperties}
+>
+  <source src="/videos/campus1.mp4"  type="video/mp4" />
+  <source src="/videos/campus.webm" type="video/webm" />
+</video>
         ) : (
           <div className="w-full h-full" style={{ background: "linear-gradient(135deg,#002614 0%,#003D1E 35%,#006C33 65%,#004F24 100%)" }} />
         )}
@@ -196,7 +206,7 @@ export default function Hero() {
             ].map(s => (
               <div key={s.l}>
                 <p className="font-serif font-bold text-white text-xl sm:text-2xl leading-none">{s.v}</p>
-                <p className="t-label text-white/38 mt-1">{s.l}</p>
+                <p className="t-label text-gold mt-1">{s.l}</p>
               </div>
             ))}
           </motion.div>
