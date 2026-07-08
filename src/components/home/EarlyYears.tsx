@@ -6,7 +6,6 @@ import {
   ArrowRight, Smile, Heart, BookOpen,
   Palette, Music, Star, Shield, Users, Sparkles,
 } from "lucide-react";
-import EllieSVG from "@/components/mascot/EllieSVG";
 
 // ── Day schedule ─────────────────────────────────────────────
 const SCHEDULE = [
@@ -135,8 +134,6 @@ export default function EarlyYears() {
                   {FACTS[factIdx]}
                 </p>
               </motion.div>
-
-              <EllieSVG mood={ellieMood} size={180} onClick={handleEllieClick} />
 
               <motion.p
                 initial={{ opacity: 0 }}

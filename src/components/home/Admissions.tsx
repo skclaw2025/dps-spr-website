@@ -2,7 +2,6 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { CheckCircle, Loader2, ArrowRight, Phone, Mail } from "lucide-react";
-import EllieSVG from "@/components/mascot/EllieSVG";
 
 const STEPS = [
   { n: 1, title: "Register Interest",  desc: "Fill the enquiry form below or call us directly. Our team responds within 24 hours.",               icon: "📋" },
@@ -239,7 +238,6 @@ export default function Admissions() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="text-center py-8"
                     >
-                      <EllieSVG mood="happy" size={130} className="mx-auto mb-4" />
                       <h3 className="t-h3 text-ink mb-2">Thank you! 🎉</h3>
                       <p className="text-gray-400 t-sm max-w-xs mx-auto">
                         Our admissions team will contact you within 24 hours.
