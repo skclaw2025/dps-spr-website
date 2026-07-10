@@ -117,44 +117,7 @@ export default function StatsFacilities() {
     <section className="section bg-[#F9FAFB] border-t border-black/[0.05]">
       <div className="wrap">
 
-        {/* ── Stats grid ── */}
-        <div ref={statsRef} className="mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={statsView ? { opacity: 1, y: 0 } : {}}
-            className="flex items-center gap-3 mb-10"
-          >
-            <div className="gold-bar" />
-            <p className="t-label text-gray-400">By the Numbers</p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-black/[0.06] rounded-2xl overflow-hidden">
-            {STATS.map((s, i) => (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={statsView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.08, duration: 0.6, ease: [0.22,1,0.36,1] }}
-                className="bg-white px-6 py-8 flex flex-col gap-1 group hover:bg-[#006C33] transition-colors duration-400 cursor-default"
-              >
-                <p className="font-serif font-bold leading-none transition-colors duration-300"
-                  style={{
-                    fontSize: "clamp(2rem,3.5vw,2.75rem)",
-                    color: s.color,
-                  }}
-                >
-                  <Counter end={s.end} suffix={s.suffix} />
-                </p>
-                <p className="text-[11px] font-bold text-gray-500 group-hover:text-white/60 transition-colors duration-300 tracking-wide mt-1">
-                  {s.label}
-                </p>
-                <p className="text-xs text-gray-400 group-hover:text-white/45 transition-colors duration-300 leading-snug">
-                  {s.sub}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+       
 
         {/* ── Facilities ── */}
         <div ref={facilRef}>

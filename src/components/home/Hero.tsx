@@ -71,7 +71,7 @@ export default function Hero() {
                           transition={{ delay: w.delay, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
                           className="block font-serif font-bold leading-[1.0]"
                           style={{
-                            fontSize: "clamp(3.2rem, 6.5vw, 6rem)",
+                            fontSize: "clamp(3.1rem, 6.2vw, 5.7rem)",
                             letterSpacing: "-0.03em",
                             color: w.gold ? "#C9A030" : "#111827",
                           }}
