@@ -48,7 +48,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={ready ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}
-              className="pill-gold"
+              className="pill-green"
             >
               Admissions Open · April 2027
             </motion.span>
@@ -70,7 +70,7 @@ export default function Hero() {
                     initial={{ y: "110%" }}
                     animate={ready ? { y: "0%" } : {}}
                     transition={{ delay: 0.1 + i * 0.1, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                    style={w.gold ? { color: "var(--color-gold-ink)" } : undefined}
+                    style={w.gold ? { color: "var(--color-green)" } : undefined}
                   >
                     {w.t}
                   </motion.span>
