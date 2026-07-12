@@ -1,178 +1,93 @@
 "use client";
+
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";
 
+/* Big word-stack headline (one word/phrase per line, staggered reveal). */
+const LINES: { t: string; gold?: boolean }[] = [
+  { t: "A Place" },
+  { t: "Where" },
+  { t: "Children" },
+  { t: "Discover", gold: true },
+  { t: "Who They" },
+  { t: "Can Become." },
+];
+
 export default function Hero() {
-  const ref    = useRef<HTMLElement>(null);
-  const [noVid, setNoVid] = useState(false);
+  const ref = useRef<HTMLElement>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setReady(true), 100);
+    const t = setTimeout(() => setReady(true), 60);
     return () => clearTimeout(t);
   }, []);
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const opacity  = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const y       = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <section
-      ref={ref}
-      className="relative w-full overflow-hidden"
-      style={{ minHeight: "100svh", background: "#f8f9f4" }}
-    >
-      {/* ── Watercolor BG image ── */}
-      <Image
-        src="/images/hero-bg.png"
-        alt=""
-        fill
-        priority
-        className="object-cover object-center"
-        style={{ zIndex: 0 }}
-      />
+    <section ref={ref} className="relative w-full" style={{ minHeight: "100svh", background: "#f8f9f4" }}>
+      {/* ── Background (clipped here, so content can never be cut) ── */}
+      <div className="absolute inset-0 overflow-hidden">
+        <Image src="/images/hero-bg.png" alt="" fill priority className="object-cover object-center" />
+        <div className="absolute inset-0" style={{ background: "rgba(248,249,244,0.18)" }} />
+      </div>
 
-      {/* ── Subtle white wash so text stays readable ── */}
-      <div className="absolute inset-0 z-[1]"
-        style={{ background: "rgba(248,249,244,0.18)" }} />
-
-      {/* ── Main content grid ── */}
-      <motion.div
-        className="relative z-10 w-full h-full flex items-center"
-        style={{ y: contentY, opacity }}
-      >
+      {/* ── Content: full height, vertically centered, grows if needed ── */}
+      <motion.div className="relative z-10 flex min-h-[100svh] items-center" style={{ y, opacity }}>
         <div className="wrap w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
-            style={{ paddingTop: "clamp(100px,18vh,160px)", paddingBottom: "clamp(60px,10vh,100px)" }}>
+          <div
+            className="max-w-4xl"
+            style={{ paddingTop: "clamp(96px, 13vh, 140px)", paddingBottom: "clamp(56px, 9vh, 110px)" }}
+          >
+            {/* eyebrow */}
+            <motion.span
+              initial={{ opacity: 0, y: 12 }}
+              animate={ready ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="pill-gold"
+            >
+              Admissions Open · April 2027
+            </motion.span>
 
-            {/* ── LEFT: Text ── */}
-            <div className="flex flex-col justify-center">
+            {/* BIG word-stack headline — sized by the SMALLER of width & height so it never overflows */}
+            <h1
+              className="mt-6 font-serif font-bold"
+              style={{
+                fontSize: "clamp(2.7rem, min(7.6vw, 8.6vh), 5.7rem)",
+                lineHeight: 1.0,
+                letterSpacing: "-0.03em",
+                color: "var(--color-ink)",
+              }}
+            >
+              {LINES.map((w, i) => (
+                <span key={w.t} className="block overflow-hidden">
+                  <motion.span
+                    className="block"
+                    initial={{ y: "110%" }}
+                    animate={ready ? { y: "0%" } : {}}
+                    transition={{ delay: 0.1 + i * 0.1, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                    style={w.gold ? { color: "var(--color-gold-ink)" } : undefined}
+                  >
+                    {w.t}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
 
-              
-              {/* ── BIG headline — NIS style ── */}
-              <div className="overflow-hidden">
-                {ready && (
-                  <>
-                    {[
-                      { text: "A Place",  delay: 0.1,  gold: false },
-                      { text: "Where",    delay: 0.22, gold: false },
-                      { text: "Children", delay: 0.34, gold: false },
-                      { text: "Discover", delay: 0.46, gold: true  },
-                      { text: "Who They", delay: 0.58, gold: false },
-                      { text: "Can Become.", delay: 0.70, gold: false },
-                    ].map((w) => (
-                      <div key={w.text} className="overflow-hidden leading-none">
-                        <motion.h1
-                          initial={{ y: "105%" }}
-                          animate={{ y: "0%" }}
-                          transition={{ delay: w.delay, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                          className="block font-serif font-bold leading-[1.0]"
-                          style={{
-                            fontSize: "clamp(3.1rem, 6.2vw, 5.7rem)",
-                            letterSpacing: "-0.03em",
-                            color: w.gold ? "#C9A030" : "#111827",
-                          }}
-                        >
-                          {w.text}
-                        </motion.h1>
-                      </div>
-                    ))}
-                  </>
-                )}
-              </div>
-
-              
-            </div>
-
-            {/* ── RIGHT: Video window ── */}
-            {ready && (
-              <motion.div
-                initial={{ opacity: 0, x: 40, scale: 0.96 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{ delay: 0.3, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                className="relative w-full lg:w-[118%] lg:-ml-8"
-                style={{ aspectRatio: "16/10" }}
-              >
-                {/* Video frame */}
-                <div
-                  className="absolute inset-0 overflow-hidden"
-                  style={{
-                    boxShadow: "0 32px 80px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.12)",
-                  }}
-                >
-                  {!noVid ? (
-                    <video
-                      className="w-full h-full object-cover"
-                      autoPlay muted loop playsInline preload="auto"
-                      onError={() => setNoVid(true)}
-                      style={{ WebkitPlaysinline: true } as React.CSSProperties}
-                    >
-                      <source src="/videos/campus1.mp4"  type="video/mp4" />
-                      <source src="/videos/campus.webm" type="video/webm" />
-                    </video>
-                  ) : (
-                    /* Fallback gradient */
-                    <div className="w-full h-full flex items-center justify-center"
-                      style={{ background: "linear-gradient(135deg,#003D1E,#006C33)" }}>
-                      <div className="text-center">
-                        <p className="text-white/50 text-sm font-medium">Campus Video</p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Play button overlay */}
-                  <div className="absolute inset-0 flex items-end justify-end p-5 pointer-events-none">
-                    <div className="flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold text-white"
-                      style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}>
-                      <div className="w-5 h-5 rounded-full bg-[#FFD700] flex items-center justify-center flex-shrink-0">
-                        <Play size={9} style={{ fill: "#111827", color: "#111827", marginLeft: 1 }} />
-                      </div>
-                      Play Full Video
-                    </div>
-                  </div>
-                </div>
-
-                {/* DPS Society badge — bottom left of video */}
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9, duration: 0.6 }}
-                  className="absolute -bottom-5 -left-5 flex items-center gap-3 px-4 py-3 rounded-2xl"
-                  style={{
-                    background: "white",
-                    boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
-                    border: "1px solid rgba(0,0,0,0.06)",
-                  }}
-                >
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{ background: "#006C33" }}>
-                    <span className="text-white text-xs font-bold">DPS</span>
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-gray-900 leading-tight">DPS Society</p>
-                    <p className="text-[10px] text-gray-400">New Delhi · Est. 1949</p>
-                  </div>
-                </motion.div>
-
-                {/* Founding batch badge — top right of video */}
-                <motion.div
-                  initial={{ opacity: 0, y: -12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.0, duration: 0.6 }}
-                  className="absolute -top-4 -right-4 px-4 py-2.5 rounded-xl"
-                  style={{
-                    background: "#006C33",
-                    boxShadow: "0 6px 20px rgba(0,108,51,0.30)",
-                  }}
-                >
-                  <p className="text-white text-[11px] font-bold tracking-wide">⭐ Founding Batch</p>
-                  <p className="text-white/70 text-[10px]">April 2027 · Limited Seats</p>
-                </motion.div>
-              </motion.div>
-            )}
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={ready ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.85, duration: 0.7 }}
+              className="mt-9 flex flex-wrap items-center gap-4"
+            >
+              <Link href="/admissions" className="btn-orange">Join the Founding Batch →</Link>
+              <Link href="/visit" className="btn-outline-dark">Book a Visit</Link>
+            </motion.div>
           </div>
         </div>
       </motion.div>

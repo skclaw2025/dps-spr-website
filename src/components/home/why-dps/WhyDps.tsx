@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 
-import FeatureCard from "./FeatureCard";
-import FloatingImage from "./FloatingImage";
+//import FeatureCard from "./FeatureCard";
+import DpsDuality from "./DpsDuality";
+//import FloatingImage from "./FloatingImage";
+import SchoolTour from "./SchoolTour";
 
 export default function WhyDps() {
   return (
@@ -33,75 +35,12 @@ export default function WhyDps() {
             className="lg:col-span-5"
           >
 
-            {/* Small Heading */}
-
-            <div className="flex items-center gap-3">
-
-              <span className="h-[2px] w-16 bg-[#C89A2B]" />
-
-              <p className="text-sm font-semibold tracking-[0.35em] uppercase text-[#0F6B50]">
-
-                WHY DPS SPR
-
-              </p>
-
-            </div>
-
-            {/* Main Heading */}
-
-            <h2 className="mt-6 text-[64px] leading-[1] font-black text-[#222]">
-
-              Why
-
-              <span className="text-[#0F6B50]">
-
-                {" "}DPS SPR?
-
-              </span>
-
-            </h2>
-
-            {/* Subtitle */}
-
-            <h3 className="mt-4 text-[44px] italic font-light text-[#C89A2B]">
-
-              Building Future Leaders.
-
-            </h3>
-
-            {/* Description */}
-
-            <p className="mt-8 max-w-xl text-lg leading-9 text-neutral-600">
-
-              At Delhi Public School SPR we nurture every learner through
-              world-class academics, holistic development, sports,
-              leadership, innovation and global exposure.
-
-            </p>
 
             {/* Feature Card */}
 
             <div className="mt-10">
 
-              <FeatureCard />
-
-            </div>
-
-            {/* Buttons */}
-
-            <div className="mt-10 flex flex-wrap gap-5">
-
-              <button className="rounded-full bg-[#0F6B50] px-8 py-4 text-white font-semibold transition hover:scale-105">
-
-                Explore Campus →
-
-              </button>
-
-              <button className="rounded-full border border-[#0F6B50] px-8 py-4 font-semibold text-[#0F6B50] transition hover:bg-[#0F6B50] hover:text-white">
-
-                Book School Tour →
-
-              </button>
+              <DpsDuality />
 
             </div>
 
@@ -117,7 +56,8 @@ export default function WhyDps() {
             className="relative lg:col-span-7 flex justify-end"
           >
 
-            <FloatingImage />
+            <SchoolTour />
+            {/* Buttons */}
 
           </motion.div>
 

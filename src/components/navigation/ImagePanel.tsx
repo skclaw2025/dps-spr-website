@@ -8,64 +8,31 @@ interface ImagePanelProps {
   title: string;
 }
 
-export default function ImagePanel({
-  image,
-  title,
-}: ImagePanelProps) {
+export default function ImagePanel({ image, title }: ImagePanelProps) {
   return (
-    <div className="relative h-screen w-full overflow-hidden">
-
+    <div className="relative h-full w-full overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={image}
-          initial={{
-            opacity: 0,
-            scale: 1.08,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          exit={{
-            opacity: 0,
-            scale: 1.05,
-          }}
-          transition={{
-            duration: 0.6,
-            ease: "easeInOut",
-          }}
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.05 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
           className="absolute inset-0"
         >
-          <Image
-            src={image}
-            alt={title}
-            fill
-            priority
-            sizes="40vw"
-            className="object-cover"
-          />
+          <Image src={image} alt={title} fill sizes="34vw" className="object-cover" />
 
-          {/* Dark Overlay */}
+          {/* Dark overlay */}
           <div className="absolute inset-0 bg-black/15" />
-
-          {/* Bottom Gradient */}
+          {/* Bottom gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
           {/* Title */}
           <div className="absolute bottom-10 left-10 z-20">
             <motion.h2
-              initial={{
-                opacity: 0,
-                y: 25,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                delay: 0.2,
-                duration: 0.4,
-              }}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.4 }}
               className="text-4xl font-bold text-white"
             >
               {title}
@@ -73,7 +40,6 @@ export default function ImagePanel({
           </div>
         </motion.div>
       </AnimatePresence>
-
     </div>
   );
 }

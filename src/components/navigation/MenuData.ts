@@ -4,7 +4,7 @@ export const menuItems: MainMenuItem[] = [
   {
     id: "about",
     title: "Who We Are",
-    image: "/images/menu/about.jpg",
+    image: "/images/menu.png",
 
     submenu: [
       { title: "About DPS", href: "/about" },
@@ -18,7 +18,7 @@ export const menuItems: MainMenuItem[] = [
   {
     id: "academics",
     title: "How We Learn",
-    image: "/images/menu/academics.jpg",
+    image: "/images/menu.png",
 
     submenu: [
       { title: "Pre Primary", href: "/academics/pre-primary" },
@@ -32,7 +32,7 @@ export const menuItems: MainMenuItem[] = [
   {
     id: "student",
     title: "Student Experiences",
-    image: "/images/menu/student.jpg",
+    image: "/images/menu.png",
 
     submenu: [
       { title: "Sports", href: "/sports" },
@@ -46,7 +46,7 @@ export const menuItems: MainMenuItem[] = [
   {
     id: "community",
     title: "Community Belonging",
-    image: "/images/menu/community.jpg",
+    image: "/images/menu.png",
 
     submenu: [
       { title: "Parents", href: "/parents" },
@@ -59,7 +59,7 @@ export const menuItems: MainMenuItem[] = [
   {
     id: "admission",
     title: "Join DPS",
-    image: "/images/menu/admission.jpg",
+    image: "/images/menu.png",
 
     submenu: [
       { title: "Admission Process", href: "/admissions" },

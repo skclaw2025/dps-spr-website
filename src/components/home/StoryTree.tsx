@@ -19,6 +19,7 @@ const GOLD       = "var(--color-gold)";
 const ORANGE     = "var(--color-orange)";
 const ORANGE_DP  = "var(--color-orange-deep)";
 const TAUPE      = "var(--color-taupe)";
+const TAUPE_DK   = "#8A7360";  /* darker taupe for the thick main roots */
 
 /* ---- deterministic PRNG (mulberry32) ---- */
 function mulberry32(seed: number) {
@@ -90,6 +91,53 @@ function buildTree() {
 }
 
 const TREE = buildTree();
+
+/* ---- grow a real, branching root system (downward, tapering, forking) ---- */
+function buildRoots() {
+  const rnd = mulberry32(13579);
+  const roots: Branch[] = [];
+  const MAX = 4;
+
+  function grow(x: number, y: number, angle: number, len: number, width: number, depth: number) {
+    if (depth > MAX || len < 6) return;
+    const rad = (angle * Math.PI) / 180;
+    const x2 = x + Math.cos(rad) * len;
+    const y2 = y + Math.sin(rad) * len;
+    const mx = (x + x2) / 2, my = (y + y2) / 2;
+    const perp = (angle + 90) * Math.PI / 180;
+    const bend = (rnd() - 0.5) * len * 0.4;
+    const cx = mx + Math.cos(perp) * bend, cy = my + Math.sin(perp) * bend;
+
+    roots.push({
+      d: `M${x.toFixed(1)} ${y.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`,
+      depth, width, t: 0.02 + (depth / MAX) * 0.16,
+    });
+
+    const kids = depth === 0 ? 2 : rnd() < 0.45 ? 2 : 1;
+    for (let i = 0; i < kids; i++) {
+      const spread = 12 + rnd() * 20;
+      const dir = kids === 2 ? (i === 0 ? -1 : 1) : (rnd() - 0.5) * 2;
+      const na = angle + dir * spread + (rnd() - 0.5) * 8;
+      const nlen = len * (0.68 + rnd() * 0.12);
+      grow(x2, y2, na, nlen, width * 0.6, depth + 1);
+    }
+  }
+
+  // main roots fanning downward (90° = straight down); wide shallow + deep central
+  const starts = [
+    { a: 90,  l: 56, w: 10 },
+    { a: 72,  l: 48, w: 9 },
+    { a: 108, l: 48, w: 9 },
+    { a: 56,  l: 40, w: 7 },
+    { a: 124, l: 40, w: 7 },
+    { a: 42,  l: 30, w: 5 },
+    { a: 138, l: 30, w: 5 },
+  ];
+  for (const s of starts) grow(250, 500, s.a, s.l, s.w, 0);
+  return roots;
+}
+
+const ROOTS = buildRoots();
 
 /* ---- a stroke that draws itself across a scroll range ---- */
 function DrawPath({
@@ -192,12 +240,13 @@ export default function StoryTree() {
               {/* ground */}
               <DrawPath d="M80 502 L420 502" progress={progress} start={0.02} end={0.12} stroke={TAUPE} width={2} />
 
-              {/* roots */}
-              <DrawPath d="M250 502 C 234 528 212 540 186 556" progress={progress} start={0.04} end={0.24} stroke={TAUPE} width={2.6} />
-              <DrawPath d="M250 502 C 250 532 248 554 248 576" progress={progress} start={0.05} end={0.24} stroke={TAUPE} width={2.6} />
-              <DrawPath d="M250 502 C 268 528 294 540 322 556" progress={progress} start={0.06} end={0.25} stroke={TAUPE} width={2.6} />
-              <DrawPath d="M250 502 C 230 522 202 530 172 538" progress={progress} start={0.05} end={0.24} stroke={TAUPE} width={2} />
-              <DrawPath d="M250 502 C 270 522 300 530 330 538" progress={progress} start={0.06} end={0.25} stroke={TAUPE} width={2} />
+              {/* roots (generated) */}
+              {ROOTS.map((r, i) => (
+                <DrawPath key={`root-${i}`} d={r.d} progress={progress}
+                  start={r.t} end={r.t + 0.14}
+                  stroke={r.depth === 0 ? TAUPE_DK : TAUPE}
+                  width={Math.max(r.width, 1.2)} />
+              ))}
 
               {/* branches (generated) */}
               {TREE.branches.map((b, i) => (
